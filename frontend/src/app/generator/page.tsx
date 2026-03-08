@@ -8,6 +8,7 @@ export default function GeneratorPage() {
     const [jiraEmail, setJiraEmail] = useState("user@domain.com");
     const [jiraApiKey, setJiraApiKey] = useState("");
     const [temperature, setTemperature] = useState(0.1);
+    const [aiModel, setAiModel] = useState("llama-3.3-70b-versatile");
     const [loading, setLoading] = useState(false);
     const [result, setResult] = useState<any>(null);
 
@@ -24,6 +25,7 @@ export default function GeneratorPage() {
                     jiraEmail: jiraEmail,
                     jiraApiKey: jiraApiKey,
                     llm: "groq",
+                    aiModel: aiModel,
                     temperature: temperature
                 }),
             });
@@ -106,6 +108,19 @@ export default function GeneratorPage() {
                                 className="w-full accent-emerald-500"
                             />
                             <p className="text-xs text-gray-500 mt-1">Lower is deterministic, higher is creative.</p>
+                        </div>
+                        <div className="mb-6">
+                            <label className="block text-sm text-gray-400 mb-2">AI Model</label>
+                            <select
+                                value={aiModel}
+                                onChange={(e) => setAiModel(e.target.value)}
+                                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all appearance-none"
+                            >
+                                <option value="llama-3.3-70b-versatile">Llama 3.3 70B Versatile (Recommended)</option>
+                                <option value="llama3-8b-8192">Llama 3 8B (Fastest)</option>
+                                <option value="mixtral-8x7b-32768">Mixtral 8x7B (Complex Logic)</option>
+                                <option value="gemma2-9b-it">Gemma 2 9B (Google)</option>
+                            </select>
                         </div>
 
                         <button
