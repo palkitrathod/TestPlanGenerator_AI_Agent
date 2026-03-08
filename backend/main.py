@@ -25,6 +25,7 @@ class JiraRequest(BaseModel):
     jiraEmail: str
     jiraApiKey: str
     llm: str
+    aiModel: str = "llama-3.3-70b-versatile"
     temperature: float = 0.1
 
 @app.get("/")
@@ -51,6 +52,7 @@ async def generate_test_plan(request: JiraRequest):
     llm_response = generate_qa_payload(
         extracted_data, 
         llm_provider=request.llm,
+        ai_model=request.aiModel,
         temperature=request.temperature
     )
     if "error" in llm_response:

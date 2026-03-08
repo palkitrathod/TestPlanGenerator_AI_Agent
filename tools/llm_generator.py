@@ -7,7 +7,7 @@ from langchain_core.output_parsers import JsonOutputParser
 
 load_dotenv(dotenv_path="../backend/.env")
 
-def generate_qa_payload(jira_json, llm_provider="groq", temperature=0.1):
+def generate_qa_payload(jira_json, llm_provider="groq", ai_model="llama-3.3-70b-versatile", temperature=0.1):
     """
     Takes the structured Jira JSON and routes it to an LLM to build the QA Test Plan.
     Returns a Pydantic-validated or JSON-parsed dictionary.
@@ -17,7 +17,7 @@ def generate_qa_payload(jira_json, llm_provider="groq", temperature=0.1):
         if not groq_api_key:
             return {"error": "GROQ_API_KEY is not set in the environment.", "status": 500}
         
-        llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=groq_api_key, temperature=temperature)
+        llm = ChatGroq(model=ai_model, api_key=groq_api_key, temperature=temperature)
     else:
         # Assuming Ollama is local
         # A more robust system would use LangChain's Ollama model natively,
